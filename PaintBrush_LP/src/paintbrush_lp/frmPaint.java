@@ -31,6 +31,9 @@ public class frmPaint extends javax.swing.JFrame {
     /**
      * Creates new form frmPaint
      */
+    /**
+     * Cria uma nova instância da classe frmPaint.
+     */
     public frmPaint() {
         initComponents();
         this.setSize(1200, 800); // Defina o tamanho fixo da janela (por exemplo, 800x600 pixels).
@@ -44,6 +47,7 @@ public class frmPaint extends javax.swing.JFrame {
         
     }
     
+    // Método para limpar a seleção de botões.
      private void limparSelecao() {
         btnDesenhar.setBackground(Color.WHITE);
         btnPonto.setBackground(Color.WHITE);
@@ -381,16 +385,19 @@ public class frmPaint extends javax.swing.JFrame {
 
     private void pnlCorExternaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCorExternaMouseClicked
         // TODO add your handling code here:
+        // Define a cor de fundo do painel externo como a cor selecionada no seletor de cores.
         pnlCorExterna.setBackground(jColorChooser1.getColor());
     }//GEN-LAST:event_pnlCorExternaMouseClicked
 
     private void pnlCorInternaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCorInternaMouseClicked
         // TODO add your handling code here:
+        // Define a cor de fundo do painel interno como a cor selecionada no seletor de cores.
         pnlCorInterna.setBackground(jColorChooser1.getColor());
     }//GEN-LAST:event_pnlCorInternaMouseClicked
 
     private void btnPontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPontoMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Ponto, limpa a seleção de outros botões e destaca o botão "Ponto".
         tipoFigura = TipoFigura.tfPonto;
         limparSelecao();
         btnPonto.setBackground(Color.LIGHT_GRAY);
@@ -398,15 +405,17 @@ public class frmPaint extends javax.swing.JFrame {
 
     private void pnlPaintMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPaintMousePressed
         // TODO add your handling code here:
+        // Lida com ações quando o mouse é pressionado sobre o painel de desenho.
         
-        if (tipoFigura == TipoFigura.tfPonto) {
+        // Verifica o tipo de figura selecionada
+        if (tipoFigura == TipoFigura.tfPonto) { // Se for um ponto, cria um objeto Ponto e configura a cor e as coordenadas
             Ponto p = new Ponto();
             p.cor = pnlCorExterna.getBackground();
             p.x  = evt.getX();
             p.y  = evt.getY();
-            p.desenhar(pnlPaint.getGraphics());
+            p.desenhar(pnlPaint.getGraphics()); // Desenha o ponto no painel de desenho.
         }
-        else if (tipoFigura == TipoFigura.tfRetangulo) {
+        else if (tipoFigura == TipoFigura.tfRetangulo) { // Se for um retângulo, configura os parâmetros iniciais do retângulo
             retangulo.cor = pnlCorExterna.getBackground();
             retangulo.cor_Interna = pnlCorInterna.getBackground();
             retangulo.exibir_Perimetro = chkPerimetro.isSelected();
@@ -414,19 +423,22 @@ public class frmPaint extends javax.swing.JFrame {
             retangulo.x  = evt.getX();
             retangulo.y  = evt.getY();                       
         }
-        else if(tipoFigura == TipoFigura.tfReta) {
+        else if(tipoFigura == TipoFigura.tfReta) { // Se for uma reta, configura os parâmetros iniciais da reta
             reta.cor = pnlCorExterna.getBackground();
             reta.exibirCompr = chkComprimento.isSelected();
             reta.x = evt.getX();
             reta.y = evt.getY();
         }
-        else if(tipoFigura == TipoFigura.tfCirculo) {
+        else if(tipoFigura == TipoFigura.tfCirculo) { // Se for um círculo, configura os parâmetros iniciais do círculo
             circulo.exibir_Area = chkArea.isSelected();
             circulo.exibir_Perimetro = chkPerimetro.isSelected();
             circulo.x = evt.getX();
             circulo.y = evt.getY();
         }
         else if(tipoFigura == TipoFigura.tfPoligono) {
+            // Se for um polígono, verifica o número de pontos e se o botão direito do mouse foi pressionado
+            // Desenha o polígono se houver pelo menos dois pontos e o botão direito foi pressionado
+            // Caso contrário, adiciona um ponto ao polígono
             if(poligono.Pontos.size() >= 2 && evt.getButton() == MouseEvent.BUTTON3) poligono.desenhar(pnlPaint.getGraphics());
             else {
                 poligono.cor = pnlCorExterna.getBackground();
@@ -434,14 +446,14 @@ public class frmPaint extends javax.swing.JFrame {
                 poligono.adicionarPonto(evt.getX(), evt.getY());
             }
         }
-        else if(tipoFigura == TipoFigura.tfCilindro) {
+        else if(tipoFigura == TipoFigura.tfCilindro) {  // Se for um cilindro, configura os parâmetros iniciais do cilindro
             cilindro.cor = pnlCorExterna.getBackground();
             cilindro.exibir_Area = chkArea.isSelected();
             cilindro.exibir_Volume = chkVolume.isSelected();
             cilindro.x = evt.getX();
             cilindro.y = evt.getY();
         }
-        else if(tipoFigura == TipoFigura.tfPiramide) {
+        else if(tipoFigura == TipoFigura.tfPiramide) { // Se for uma pirâmide, configura os parâmetros iniciais da pirâmide
             piramide.cor = pnlCorExterna.getBackground();
             piramide.exibir_Area = chkArea.isSelected();
             piramide.exibir_Volume = chkVolume.isSelected();
@@ -455,33 +467,38 @@ public class frmPaint extends javax.swing.JFrame {
 
     private void btnRetanguloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetanguloMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Retângulo, limpa a seleção de outros botões e destaca o botão "Retângulo".
         tipoFigura = TipoFigura.tfRetangulo;
+        // Limpa a seleção de outros botões e destaca o botão Retângulo
         limparSelecao();
         btnRetangulo.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnRetanguloMouseClicked
 
     private void pnlPaintMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPaintMouseReleased
         // TODO add your handling code here:
-        if (tipoFigura == TipoFigura.tfRetangulo) {
+        // Lida com ações quando o mouse é liberado sobre o painel de desenho.
+    
+        // Verifica o tipo de figura selecionada.
+        if (tipoFigura == TipoFigura.tfRetangulo) { // Se for Retângulo, finaliza o desenho do retângulo com base nas coordenadas iniciais e finais.
             retangulo.base = evt.getX() - retangulo.x;
             retangulo.largura = evt.getY() - retangulo.y;
             retangulo.desenhar(pnlPaint.getGraphics());                         
-        }else if(tipoFigura == TipoFigura.tfReta) {
+        }else if(tipoFigura == TipoFigura.tfReta) { // Se for Reta, finaliza o desenho da reta com base nas coordenadas iniciais e finais.
             reta.x1 = evt.getX();
             reta.y1 = evt.getY();
             reta.desenhar(pnlPaint.getGraphics());
-        } else if(tipoFigura == TipoFigura.tfCirculo) {
+        } else if(tipoFigura == TipoFigura.tfCirculo) { // Se for Círculo, finaliza o desenho do círculo com base nas coordenadas iniciais e finais.
             circulo.raio = (int) Math.sqrt(Math.pow(evt.getX() - circulo.x, 2) + Math.pow(evt.getY() - circulo.y, 2));
             circulo.cor_Interna = pnlCorInterna.getBackground();
             circulo.cor = pnlCorExterna.getBackground();
             circulo.desenhar(pnlPaint.getGraphics());
-        } else if(tipoFigura == TipoFigura.tfCilindro) {
+        } else if(tipoFigura == TipoFigura.tfCilindro) { // Se for Cilindro, finaliza o desenho do cilindro com base nas coordenadas iniciais e finais.
             cilindro.raio = Math.abs(evt.getX() - cilindro.x)/2;
             cilindro.altura = Math.abs(evt.getY() - cilindro.y);
             if(evt.getX() < cilindro.x) cilindro.x = evt.getX();
             if(evt.getY() < cilindro.y) cilindro.y = evt.getY();
             cilindro.desenhar(pnlPaint.getGraphics());
-        } else if(tipoFigura == TipoFigura.tfPiramide) {
+        } else if(tipoFigura == TipoFigura.tfPiramide) { // Se for Pirâmide, finaliza o desenho da pirâmide com base nas coordenadas iniciais e finais.
             piramide.base = Math.abs(evt.getX() - piramide.x);
             piramide.altura = Math.abs(evt.getY() - piramide.y);
             piramide.largura = piramide.altura/3;
@@ -497,14 +514,18 @@ public class frmPaint extends javax.swing.JFrame {
 
     private void btnRetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetaMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Reta ao clicar no botão Reta
         tipoFigura = tipoFigura.tfReta;
+        // Limpa a seleção de outros botões e destaca o botão Reta
         limparSelecao();
         btnReta.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnRetaMouseClicked
 
     private void btnCirculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCirculoMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Círculo ao clicar no botão Círculo
         tipoFigura = tipoFigura.tfCirculo;
+        // Limpa a seleção de outros botões e destaca o botão Círculo
         limparSelecao();
         btnCirculo.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnCirculoMouseClicked
@@ -515,18 +536,20 @@ public class frmPaint extends javax.swing.JFrame {
 
     private void pnlPaintMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPaintMouseDragged
         // TODO add your handling code here:
-        if(tipoFigura == TipoFigura.tfBorracha){
+        // Manipula o evento de arrastar o mouse sobre o painel de desenho
+        // Dependendo do tipo de figura selecionada, realiza ações diferentes
+        if(tipoFigura == TipoFigura.tfBorracha){ // Se for borracha, configura a cor interna e as coordenadas e desenha a borracha
             borracha.cor_Interna = pnlCorInterna.getBackground();
             borracha.x = evt.getX();
             borracha.y = evt.getY();
             borracha.desenhar(pnlPaint.getGraphics());
-        } else if(tipoFigura == TipoFigura.tfDesenhar) {
+        } else if(tipoFigura == TipoFigura.tfDesenhar) { // Se for modo de desenho, cria um ponto nas coordenadas do mouse e o desenha no painel
             Ponto p = new Ponto();
             p.cor = pnlCorExterna.getBackground();
             p.x = evt.getX();
             p.y = evt.getY();
             p.desenhar(pnlPaint.getGraphics());
-        } else if(tipoFigura == TipoFigura.tfSpray) {
+        } else if(tipoFigura == TipoFigura.tfSpray) { // Se for spray, configura a cor e as coordenadas e desenha o spray
             spray.cor = pnlCorExterna.getBackground();
             spray.x = evt.getX();
             spray.y = evt.getY();
@@ -548,43 +571,55 @@ public class frmPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_chkComprimentoActionPerformed
 
     private void btnSprayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSprayMouseClicked
-        // TODO add your handling code here:]
+        // TODO add your handling code here:
+        // Define o tipo de figura como Spray ao clicar no botão Spray
         tipoFigura = tipoFigura.tfSpray;
+        // Limpa a seleção de outros botões e destaca o botão Spray
         limparSelecao();
         btnSpray.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnSprayMouseClicked
 
     private void btnCilindroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCilindroMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Cilindro ao clicar no botão Cilindro
         tipoFigura = tipoFigura.tfCilindro;
+        // Limpa a seleção de outros botões e destaca o botão Cilindro
         limparSelecao();
         btnCilindro.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnCilindroMouseClicked
 
     private void btnPiramideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPiramideMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Pirâmide ao clicar no botão Pirâmide
         tipoFigura = tipoFigura.tfPiramide;
+        // Limpa a seleção de outros botões e destaca o botão Pirâmide
         limparSelecao();
         btnPiramide.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnPiramideMouseClicked
 
     private void btnPoligonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPoligonoMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Polígono ao clicar no botão Polígono
         tipoFigura = TipoFigura.tfPoligono;
+        // Limpa a seleção de outros botões e destaca o botão Polígono
         limparSelecao();
         btnPoligono.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnPoligonoMouseClicked
 
     private void btnDesenharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesenharMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Desenho ao clicar no botão Desenhar
         tipoFigura = TipoFigura.tfDesenhar;
+        // Limpa a seleção de outros botões e destaca o botão Desenhar
         limparSelecao();
         btnDesenhar.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnDesenharMouseClicked
 
     private void btnBorrachaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBorrachaMouseClicked
         // TODO add your handling code here:
+        // Define o tipo de figura como Borracha ao clicar no botão Borracha
         tipoFigura = tipoFigura.tfBorracha;
+        // Limpa a seleção de outros botões e destaca o botão Borracha
         limparSelecao();
         btnBorracha.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_btnBorrachaMouseClicked
